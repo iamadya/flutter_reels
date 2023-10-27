@@ -8,7 +8,8 @@ void main() => runApp(MaterialApp(
   // initialRoute: '/login_screen',
   routes: {
     // '/': (context) => LoginScreen(),
-    '/': (context) => OtpScreen(),
+    // '/': (context) => OtpScreen(),
+    '/': (context) => ProfileScreen(),
 
     '/profile_screen': (context) => ProfileScreen(),
     // '/login_screen': (context) => LoginScreen(),

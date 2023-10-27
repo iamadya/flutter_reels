@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key});
@@ -24,7 +25,7 @@ class OtpScreen extends StatelessWidget {
                 color: Colors.grey[800],
               ),
             ),
-            SizedBox(height: 2),
+            SizedBox(height: 5),
             Text(
               'OTP has been sent to',
               style: TextStyle(
@@ -42,16 +43,41 @@ class OtpScreen extends StatelessWidget {
                 color: Colors.grey[800],
               ),
             ),
-
-            
-
-
-
-            TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/login_screen');
+            SizedBox(height: 20),
+            OtpTextField(
+              numberOfFields: 4,
+              borderColor: Colors.black,
+              fieldWidth: 55,
+              borderRadius: BorderRadius.all(Radius.circular(11)),
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //set to true to show as box or false to show as dash
+              showFieldAsBox: true,
+              //runs when a code is typed in
+              onCodeChanged: (String code) {
+                //handle validation or checks here
               },
-              child: Text('go to login screen'),
+              //runs when every textfield is filled
+              onSubmit: (String verificationCode) {
+                Navigator.pushNamed(context, '/profile_screen');
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Verification Code"),
+                        content: Text('Code entered is $verificationCode'),
+                      );
+                    });
+              }, // end onSubmit
+            ),
+            SizedBox(height: 40),
+
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/login_screen');
+                },
+                child: Text('Resend OTP'),
+              ),
             ),
           ],
         ),
