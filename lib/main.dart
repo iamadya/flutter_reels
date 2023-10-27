@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_reels/screens/login_screen/login_screen.dart';
+import 'package:flutter_reels/screens/otp_screen/otp_screen.dart';
+import 'package:flutter_reels/screens/profile_screen/profile_screen.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+void main() => runApp(MaterialApp(
+  debugShowCheckedModeBanner: false,
+  // initialRoute: '/login_screen',
+  routes: {
+    // '/': (context) => LoginScreen(),
+    '/': (context) => OtpScreen(),
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+    '/profile_screen': (context) => ProfileScreen(),
+    // '/login_screen': (context) => LoginScreen(),
+    // '/otp_screen': (context) => OtpScreen(),
+  },
+));
 
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Loid Forger'),
-        ),
-      ),
-    );
-  }
-}
