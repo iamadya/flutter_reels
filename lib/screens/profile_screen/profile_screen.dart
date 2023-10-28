@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_reels/screens/profile_screen/profile_postcard.dart';
 
-class ProfileScreen extends StatelessWidget {
+
+class Post{
+  String username;
+
+  Post({
+    required this.username,
+  });
+}
+
+
+
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,31 +54,16 @@ class ProfileScreen extends StatelessWidget {
           ),
         ],
       ),
-
-      body: Column(children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-          child: Row(
-            children: <Widget> [
-              Icon(Icons.person),
-              Text('Name'),
-            ],
-          ),
-        ),
-        Container(
-          child: Text('location'),
-        ),
-        SizedBox(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.width,
-            child: DecoratedBox(
-              child: Text('John Doe'),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                // borderRadius: BorderRadius.all(Radius.circular(10)),
-              ),
-            )),
-      ]
+      body: ListView.separated(
+        // padding: const EdgeInsets.all(0),
+        itemCount: 3,
+        itemBuilder: (BuildContext context, int index) {
+          return PostCard(
+              // color: Colors.amber[colorCodes[index]],
+              // child: Center(child: Text('Entry ${entries[index]}')),
+              );
+        },
+        separatorBuilder: (BuildContext context, int index) => const Divider(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
