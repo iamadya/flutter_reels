@@ -13,7 +13,7 @@ void main() => runApp(MaterialApp(
 
     '/profile_screen': (context) => ProfileScreen(),
     // '/login_screen': (context) => LoginScreen(),
-    // '/otp_screen': (context) => OtpScreen(),
+    '/otp_screen': (context) => OtpScreen(),
   },
 ));
 
