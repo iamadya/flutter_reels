@@ -24,25 +24,44 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add_a_photo),
-            tooltip: 'Show Snackbar',
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('This is a snackbar')));
+              print('camera opened');
             },
           ),
           IconButton(
             icon: const Icon(Icons.exit_to_app),
-            tooltip: 'Show Snackbar',
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('This is a snackbar')));
+              Navigator.pushNamed(context, '/login_screen');
             },
           ),
         ],
       ),
+
       body: Column(children: <Widget>[
-        
-      ]),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+          child: Row(
+            children: <Widget> [
+              Icon(Icons.person),
+              Text('Name'),
+            ],
+          ),
+        ),
+        Container(
+          child: Text('location'),
+        ),
+        SizedBox(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.width,
+            child: DecoratedBox(
+              child: Text('John Doe'),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                // borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
+            )),
+      ]
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           print('open camera');
