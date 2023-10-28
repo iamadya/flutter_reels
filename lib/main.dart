@@ -7,9 +7,9 @@ void main() => runApp(MaterialApp(
   debugShowCheckedModeBanner: false,
   // initialRoute: '/login_screen',
   routes: {
-    '/': (context) => LoginScreen(),
+    // '/': (context) => LoginScreen(),
     // '/': (context) => OtpScreen(),
-    // '/': (context) => ProfileScreen(),
+    '/': (context) => ProfileScreen(),
 
     '/profile_screen': (context) => ProfileScreen(),
     // '/login_screen': (context) => LoginScreen(),
