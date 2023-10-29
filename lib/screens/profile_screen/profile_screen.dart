@@ -40,12 +40,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
         centerTitle: false,
         leadingWidth: 50,
         actions: [
+          // IconButton(
+          //   icon: const Icon(Icons.add_a_photo),
+          //   onPressed: () {
+          //     print('camera opened');
+          //   },
+          // ),
+
           IconButton(
-            icon: const Icon(Icons.add_a_photo),
+            icon: const Icon(Icons.location_on_outlined),
             onPressed: () {
               print('camera opened');
             },
           ),
+
           IconButton(
             icon: const Icon(Icons.exit_to_app),
             onPressed: () {
