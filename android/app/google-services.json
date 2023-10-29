@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "862651645924",
+    "project_id": "flutter-reels-47ce4",
+    "storage_bucket": "flutter-reels-47ce4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862651645924:android:6392b7ca9ac27aa33791f1",
+        "android_client_info": {
+          "package_name": "com.example.flutter_reels"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkb-WWI6ftPJackIPb3pNTbUmRk8cPtOg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
