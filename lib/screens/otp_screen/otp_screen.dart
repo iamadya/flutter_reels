@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 class OtpScreen extends StatelessWidget {
-  const OtpScreen({super.key});
+  const OtpScreen({super.key, required String verificationId});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,6 @@ class OtpScreen extends StatelessWidget {
               'OTP has been sent to',
               style: TextStyle(
                 fontSize: 14,
-                // fontWeight: FontWeight.bold,
                 color: Colors.grey[800],
               ),
             ),
@@ -45,9 +44,9 @@ class OtpScreen extends StatelessWidget {
             ),
             SizedBox(height: 20),
             OtpTextField(
-              numberOfFields: 4,
+              numberOfFields: 6,
               borderColor: Colors.black,
-              fieldWidth: 55,
+              fieldWidth: 40,
               borderRadius: BorderRadius.all(Radius.circular(11)),
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               //set to true to show as box or false to show as dash
@@ -70,7 +69,6 @@ class OtpScreen extends StatelessWidget {
               }, // end onSubmit
             ),
             SizedBox(height: 40),
-
             Center(
               child: ElevatedButton(
                 onPressed: () {

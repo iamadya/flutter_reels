@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_reels/screens/otp_screen/otp_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -10,9 +12,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController countryController = TextEditingController();
 
+  bool loading = false;
+  final phoneNumberController = TextEditingController();
+  final auth = FirebaseAuth.instance;
+
   @override
   void initState() {
-    // TODO: implement initState
     countryController.text = "+91";
     super.initState();
   }
@@ -83,10 +88,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     Expanded(
                         child: TextField(
+                      controller: phoneNumberController,
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: "Phone",
+                        hintText: "+91 6845 684 142",
                       ),
                     ))
                   ],
@@ -95,23 +101,69 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                width: double.infinity,
-                height: 45,
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        primary: Colors.green.shade600,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10))),
-                    onPressed: () {
-                      print('is this working?');
-                      Navigator.pushNamed(context, '/otp_screen');
+              ElevatedButton(
+                onPressed: () {
+                  auth.verifyPhoneNumber(
+                    phoneNumber: phoneNumberController.text,
+                    verificationCompleted: (_) {},
+                    verificationFailed: (FirebaseAuthException e) {
+                      if (e.code == 'invalid-phone-number') {
+                        print('The provided phone number is not valid.');
+                      }
                     },
-                    child: Text(
-                      "Send the code",
-                      style: TextStyle(color: Colors.white),
-                    )),
-              )
+                    codeSent: (String verificationId, int? token) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  OtpScreen(verificationId: verificationId)));
+                    },
+                    codeAutoRetrievalTimeout: (String verificationId) {
+                      // Auto-resolution timed out...
+                    },
+                  );
+
+                  print('code has been sent!');
+                },
+                child: Text("Send the code"),
+              ),
+
+              // SizedBox(
+              //   width: double.infinity,
+              //   height: 45,
+              //   child: ElevatedButton(
+              //       style: ElevatedButton.styleFrom(
+              //           primary: Colors.green.shade600,
+              //           shape: RoundedRectangleBorder(
+              //               borderRadius: BorderRadius.circular(10))),
+              //       onPressed: () {
+              //         auth.verifyPhoneNumber(
+              //           phoneNumber: phoneNumberController.text,
+              //           verificationCompleted: (_) {},
+              //           verificationFailed: (FirebaseAuthException e) {
+              //             if (e.code == 'invalid-phone-number') {
+              //               print('The provided phone number is not valid.');
+              //             }
+              //           },
+              //           codeSent: (String verificationId, int? token) {
+              //             Navigator.push(
+              //                 context,
+              //                 MaterialPageRoute(
+              //                     builder: (context) => OtpScreen(
+              //                         verificationId: verificationId)));
+              //           },
+              //           codeAutoRetrievalTimeout: (String verificationId) {
+              //             // Auto-resolution timed out...
+              //           },
+              //         );
+              //       },
+              //       child: ElevatedButton(
+              //         onPressed: () {
+              //           print('code has been sent!');
+              //         },
+              //         child: Text("Send the code"),
+              //       )),
+              // )
             ],
           ),
         ),

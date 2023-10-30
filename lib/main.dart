@@ -13,16 +13,18 @@ void main() async {
   );
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    // initialRoute: '/login_screen',
+    initialRoute: '/login_screen',
     routes: {
       // '/': (context) => LoginScreen(),
       // '/': (context) => OtpScreen(),
       // '/': (context) => ProfileScreen(),
-      '/': (context) => MyApp(),
+      // '/': (context) => MyApp(),
 
+      '/login_screen': (context) => LoginScreen(),
+      '/otp_screen': (context) => OtpScreen(
+            verificationId: '',
+          ),
       '/profile_screen': (context) => ProfileScreen(),
-      // '/login_screen': (context) => LoginScreen(),
-      '/otp_screen': (context) => OtpScreen(),
     },
   ));
 }

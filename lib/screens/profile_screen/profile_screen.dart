@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_reels/screens/profile_screen/profile_postcard.dart';
 
-
-class Post{
+class Post {
   String username;
 
   Post({
     required this.username,
   });
 }
-
-
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -19,8 +16,6 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             icon: const Icon(Icons.exit_to_app),
             onPressed: () {
               Navigator.pushNamed(context, '/login_screen');
+              print('login');
             },
           ),
         ],
