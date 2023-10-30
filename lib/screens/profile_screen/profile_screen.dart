@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reels/screens/profile_screen/profile_postcard.dart';
 
@@ -16,6 +17,15 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  Future<void> _signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      Navigator.pushNamed(context, '/login_screen');
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,13 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               print('camera opened');
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.exit_to_app),
-            onPressed: () {
-              Navigator.pushNamed(context, '/login_screen');
-              print('login');
-            },
-          ),
+          IconButton(icon: const Icon(Icons.exit_to_app), onPressed: _signOut),
         ],
       ),
       body: ListView.separated(
