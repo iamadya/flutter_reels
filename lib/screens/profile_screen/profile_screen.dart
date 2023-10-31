@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reels/screens/profile_screen/profile_postcard.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Post {
   String username;
@@ -47,8 +48,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add_a_photo),
-            onPressed: () {
-              print('camera opened');
+            onPressed: () async {
+              ImagePicker imagePicker = ImagePicker();
+              XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
+              print('${file?.path}');
             },
           ),
           IconButton(icon: const Icon(Icons.exit_to_app), onPressed: _signOut),

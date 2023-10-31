@@ -13,11 +13,11 @@ void main() async {
   );
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    initialRoute: '/login_screen',
+    // initialRoute: '/login_screen',
     routes: {
       // '/': (context) => LoginScreen(),
       // '/': (context) => OtpScreen(),
-      // '/': (context) => ProfileScreen(),
+      '/': (context) => ProfileScreen(),
       // '/': (context) => MyApp(),
 
       '/login_screen': (context) => LoginScreen(),
