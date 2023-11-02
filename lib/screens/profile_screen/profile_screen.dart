@@ -58,40 +58,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           IconButton(
             icon: const Icon(Icons.add_a_photo),
             onPressed: () {
-              Navigator.pushNamed(context, '/camera_screen');
+              Navigator.pushNamed(context, '/camera_screen2');
             },
-            // // onPressed: () async {
-            // //   // pick image using image picker
-            // //   ImagePicker imagePicker = ImagePicker();
-            // //   XFile? file =
-            // //       await imagePicker.pickImage(source: ImageSource.camera);
-            // //   print('Path: ${file?.path}');
-            // //
-            // //   if (file == null) return;
-            // //
-            // //   // unique name
-            // //   String uniqueFileName =
-            // //       DateTime.now().millisecondsSinceEpoch.toString();
-            // //   //upload the file on firebase storage
-            // //
-            // //   // get the reference to file or folder
-            // //   Reference referenceRoot = FirebaseStorage.instance.ref();
-            // //   Reference referenceDirImage = referenceRoot.child('images');
-            // //
-            // //   // Create a reference for the image to be stored
-            // //   Reference referenceImageToUpload =
-            // //       referenceDirImage.child(uniqueFileName);
-            // //
-            // //   // Handle errors/success
-            // //   try {
-            // //     // Store the file
-            // //     await referenceImageToUpload.putFile(File(file!.path));
-            // //     // Success: get the download URL
-            // //     imageUrl = await referenceImageToUpload.getDownloadURL();
-            // //   } catch (error) {
-            // //     print(error);
-            // //   }
-            // },
           ),
           IconButton(icon: const Icon(Icons.exit_to_app), onPressed: _signOut),
         ],
@@ -107,12 +75,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     print('open camera');
-      //   },
-      //   child: Icon(Icons.add),
-      // ),
     );
   }
 }

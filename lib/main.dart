@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_reels/other/other_screen.dart';
 import 'package:flutter_reels/screens/camera_screen/camera2_screen.dart';
 import 'package:flutter_reels/screens/camera_screen/camera_screen.dart';
 import 'package:flutter_reels/screens/login_screen/login_screen.dart';
@@ -18,7 +17,7 @@ void main() async {
     debugShowCheckedModeBanner: false,
     // initialRoute: '/login_screen',
     routes: {
-      '/': (context) => LoginScreen(),
+      // '/': (context) => LoginScreen(),
       // '/': (context) => OtpScreen(verificationId: '',),
       // '/': (context) => OtpScreen2(verificationId: '',),
 
@@ -26,6 +25,7 @@ void main() async {
       // '/': (context) => ProfileScreen(),
       // '/': (context) => MyApp(),
       // '/': (context) => CameraScreen(),
+      '/': (context) => CameraScreen2(),
       // '/': (context) => AddUserPage(),
 
 
@@ -37,6 +37,7 @@ void main() async {
       //       verificationId: '',
       //     ),
       '/camera_screen': (context) => CameraScreen(),
+      // '/camera_screen2': (context) => CameraScreen2(),
       '/profile_screen': (context) => ProfileScreen(),
     },
   ));

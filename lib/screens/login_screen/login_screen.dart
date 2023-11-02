@@ -12,17 +12,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController countryController = TextEditingController();
-
   bool isLoading = false;
   final phoneNumberController = TextEditingController();
   final auth = FirebaseAuth.instance;
-
-  // @override
-  // void initState() {
-  //   countryController.text = "+91";
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -60,41 +52,21 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 30,
               ),
               Container(
-                height: 55,
+                height: 50,
                 decoration: BoxDecoration(
                     border: Border.all(width: 1, color: Colors.grey),
                     borderRadius: BorderRadius.circular(10)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: 40,
-                      child: TextField(
-                        controller: countryController,
-                        style: TextStyle(color: Colors.black),
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      "|",
-                      style: TextStyle(fontSize: 33, color: Colors.grey),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
+                  children: <Widget>[
                     Expanded(
                         child: TextField(
+                      textAlign: TextAlign.center,
                       controller: phoneNumberController,
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: "+91 6845 684 142",
+                        hintText: "+91 6845684142",
                       ),
                     ))
                   ],
@@ -104,12 +76,12 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20,
               ),
               ElevatedButton(
-               style: ElevatedButton.styleFrom(
-                 shape: RoundedRectangleBorder(
-                   borderRadius: BorderRadius.circular(20),
-                 ),
-                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20)
-               ),
+                style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding:
+                        EdgeInsets.symmetric(vertical: 10, horizontal: 20)),
                 onPressed: () {
                   setState(() {
                     isLoading = true;
@@ -139,11 +111,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       // Auto-resolution timed out...
                     },
                   );
-
                   print('code has been sent!');
                 },
                 child: isLoading
-                    ? CircularProgressIndicator()
+                    ? SizedBox(
+                        child: CircularProgressIndicator(),
+                        height: 20,
+                        width: 20,
+                      )
                     : Text("Send code"),
               ),
 

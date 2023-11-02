@@ -1,8 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_reels/screens/profile_screen/profile_postcard.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -14,7 +11,10 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
+
   String imageUrl = '';
+  File? _imageFile; // Variable to hold the captured image
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +33,9 @@ class _CameraScreenState extends State<CameraScreen> {
                   print('Path: ${file?.path}');
 
                   if (file == null) return;
+                  setState(() {
+                    _imageFile = File(file.path); // Update the captured image
+                  });
                   // unique name
                   String uniqueFileName =
                       DateTime.now().millisecondsSinceEpoch.toString();
