@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_reels/screens/otp_screen/otp_screen.dart';
-
-import '../otp_screen/otp_screen2.dart';
+import '../otp_screen/otp_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -105,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  OtpScreen2(verificationId: verificationId)));
+                                  OtpScreen(verificationId: verificationId)));
                     },
                     codeAutoRetrievalTimeout: (String verificationId) {
                       // Auto-resolution timed out...

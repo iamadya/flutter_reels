@@ -31,7 +31,8 @@ class _CameraScreen2State extends State<CameraScreen2> {
               onPressed: () async {
                 // pick image using image picker
                 ImagePicker imagePicker = ImagePicker();
-                XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
+                XFile? file =
+                    await imagePicker.pickImage(source: ImageSource.camera);
                 print('Path: ${file?.path}');
 
                 if (file == null) return;
@@ -46,6 +47,7 @@ class _CameraScreen2State extends State<CameraScreen2> {
               onPressed: _imageFile == null ? null : _startUpload,
               child: Text('Upload'),
             ),
+            SizedBox(height: 50),
             if (_uploadProgress > 0 && _uploadProgress < 1)
               LinearProgressIndicator(value: _uploadProgress),
           ],
@@ -60,14 +62,17 @@ class _CameraScreen2State extends State<CameraScreen2> {
     // unique name
     String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
 
-    //upload the file on firebase storage
+    // upload the file to Firebase Storage
     Reference referenceRoot = FirebaseStorage.instance.ref();
     Reference referenceDirImage = referenceRoot.child('images');
     Reference referenceImageToUpload = referenceDirImage.child(uniqueFileName);
 
     try {
       // Update state to show progress indicator
-      referenceImageToUpload.putFile(_imageFile!).snapshotEvents.listen((TaskSnapshot snapshot) {
+      referenceImageToUpload
+          .putFile(_imageFile!)
+          .snapshotEvents
+          .listen((TaskSnapshot snapshot) {
         setState(() {
           _uploadProgress = snapshot.bytesTransferred / snapshot.totalBytes;
         });
@@ -79,6 +84,9 @@ class _CameraScreen2State extends State<CameraScreen2> {
       // Success: get the download URL
       imageUrl = await referenceImageToUpload.getDownloadURL();
       _showSuccessMessage();
+
+      // Print the image URL in the terminal
+      print('Image URL: $imageUrl');
     } catch (error) {
       print(error);
       _uploadProgress = 0.0; // Reset the progress if there's an error

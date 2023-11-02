@@ -1,40 +1,48 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reels/screens/profile_screen/profile_postcard.dart';
-import 'package:image_picker/image_picker.dart';
-import 'dart:io';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Post {
   String username;
+  String imageUrl;
 
   Post({
     required this.username,
+    required this.imageUrl,
   });
 }
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({Key? key});
+
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  // XFile? file;
+  List<Post> posts = [
+    Post(username: 'User1', imageUrl: 'url_for_user1_image'),
+    // Post(username: 'User2', imageUrl: 'url_for_user2_image'),
+    // Add more Post objects with respective usernames and image URLs
+  ];
+
   Future<void> _signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
       Navigator.pushNamed(context, '/login_screen');
+      Fluttertoast.showToast(
+        msg: "Signed out",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+      );
     } catch (e) {
       print(e);
     }
   }
-
-  CollectionReference _reference =
-      FirebaseFirestore.instance.collection('Reels');
-
-  String imageUrl = '';
 
   @override
   Widget build(BuildContext context) {
@@ -61,17 +69,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Navigator.pushNamed(context, '/camera_screen2');
             },
           ),
-          IconButton(icon: const Icon(Icons.exit_to_app), onPressed: _signOut),
+          IconButton(icon: const Icon(Icons.exit_to_app), onPressed: _signOut
+          ),
         ],
       ),
       body: ListView.separated(
-        // padding: const EdgeInsets.all(0),
-        itemCount: 3,
+        itemCount: posts.length,
         itemBuilder: (BuildContext context, int index) {
-          return PostCard(
-              // color: Colors.amber[colorCodes[index]],
-              // child: Center(child: Text('Entry ${entries[index]}')),
-              );
+          return PostCard(imageUrl: posts[index].imageUrl);
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
       ),

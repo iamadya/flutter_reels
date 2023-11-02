@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class OtpScreen extends StatelessWidget {
   const OtpScreen({super.key, required String verificationId});
@@ -8,75 +9,73 @@ class OtpScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: Icon(Icons.arrow_back_ios),
-        backgroundColor: Colors.purple,
-        foregroundColor: Colors.white,
-      ),
-      body: Center(
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              'Verification OTP',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[800],
+          leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () {
+                Navigator.of(context).pop();
+              })),
+      body: Container(
+        margin: EdgeInsets.only(left: 25, right: 25),
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/img2.png',
+                width: 160,
+                height: 160,
               ),
-            ),
-            SizedBox(height: 5),
-            Text(
-              'OTP has been sent to your phone',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.grey[800],
+              SizedBox(
+                height: 25,
               ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              '+91xxxxxx2465',
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[800],
+              Text(
+                "Verification OTP",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
-            ),
-            SizedBox(height: 20),
-            OtpTextField(
-              numberOfFields: 6,
-              borderColor: Colors.black,
-              fieldWidth: 40,
-              borderRadius: BorderRadius.all(Radius.circular(11)),
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //set to true to show as box or false to show as dash
-              showFieldAsBox: true,
-              //runs when a code is typed in
-              onCodeChanged: (String code) {
-                //handle validation or checks here
-              },
-              //runs when every textfield is filled
-              onSubmit: (String verificationCode) {
-                Navigator.pushNamed(context, '/profile_screen');
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text("Verification Code"),
-                        content: Text('Code entered is $verificationCode'),
-                      );
-                    });
-              }, // end onSubmit
-            ),
-            SizedBox(height: 40),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login_screen');
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                "OTP has been sent to your phone",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              OtpTextField(
+                numberOfFields: 6,
+                borderColor: Colors.black,
+                fieldWidth: 40,
+                borderRadius: BorderRadius.all(Radius.circular(11)),
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //set to true to show as box or false to show as dash
+                showFieldAsBox: true,
+                //runs when a code is typed in
+                onCodeChanged: (String code) {
+                  //handle validation or checks here
                 },
-                child: Text('Resend OTP'),
+                //runs when every textfield is filled
+                onSubmit: (String verificationCode) {
+                  Navigator.pushNamed(context, '/profile_screen');
+                  Fluttertoast.showToast(
+                    msg: "Sign in successfully",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 1,
+                    backgroundColor: Colors.green,
+                    textColor: Colors.white,
+                  );
+                }, // end onSubmit
               ),
-            ),
-          ],
+              SizedBox(
+                height: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );
