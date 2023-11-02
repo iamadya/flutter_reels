@@ -12,10 +12,9 @@ class OtpScreen extends StatelessWidget {
         backgroundColor: Colors.purple,
         foregroundColor: Colors.white,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
+      body: Center(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
               'Verification OTP',
@@ -27,7 +26,7 @@ class OtpScreen extends StatelessWidget {
             ),
             SizedBox(height: 5),
             Text(
-              'OTP has been sent to',
+              'OTP has been sent to your phone',
               style: TextStyle(
                 fontSize: 14,
                 color: Colors.grey[800],

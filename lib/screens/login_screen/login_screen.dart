@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reels/screens/otp_screen/otp_screen.dart';
 
+import '../otp_screen/otp_screen2.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
@@ -12,15 +14,15 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController countryController = TextEditingController();
 
-  bool loading = false;
+  bool isLoading = false;
   final phoneNumberController = TextEditingController();
   final auth = FirebaseAuth.instance;
 
-  @override
-  void initState() {
-    countryController.text = "+91";
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   countryController.text = "+91";
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Image.asset(
-                'assets/img1.png',
-                width: 150,
-                height: 150,
+                'assets/images/img3.png',
+                width: 160,
+                height: 160,
               ),
               SizedBox(
                 height: 25,
@@ -48,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 10,
               ),
               Text(
-                "We need to register your phone without getting started!",
+                "Let's get you registered!",
                 style: TextStyle(
                   fontSize: 16,
                 ),
@@ -102,21 +104,36 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 20,
               ),
               ElevatedButton(
+               style: ElevatedButton.styleFrom(
+                 shape: RoundedRectangleBorder(
+                   borderRadius: BorderRadius.circular(20),
+                 ),
+                 padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20)
+               ),
                 onPressed: () {
+                  setState(() {
+                    isLoading = true;
+                  });
                   auth.verifyPhoneNumber(
                     phoneNumber: phoneNumberController.text,
                     verificationCompleted: (_) {},
                     verificationFailed: (FirebaseAuthException e) {
+                      setState(() {
+                        isLoading = false;
+                      });
                       if (e.code == 'invalid-phone-number') {
                         print('The provided phone number is not valid.');
                       }
                     },
                     codeSent: (String verificationId, int? token) {
+                      setState(() {
+                        isLoading = true;
+                      });
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  OtpScreen(verificationId: verificationId)));
+                                  OtpScreen2(verificationId: verificationId)));
                     },
                     codeAutoRetrievalTimeout: (String verificationId) {
                       // Auto-resolution timed out...
@@ -125,7 +142,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   print('code has been sent!');
                 },
-                child: Text("Send the code"),
+                child: isLoading
+                    ? CircularProgressIndicator()
+                    : Text("Send code"),
               ),
 
               // SizedBox(

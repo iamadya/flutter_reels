@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_reels/screens/profile_screen/profile_postcard.dart';
 import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class Post {
   String username;
@@ -18,6 +21,7 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  // XFile? file;
   Future<void> _signOut() async {
     try {
       await FirebaseAuth.instance.signOut();
@@ -26,6 +30,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       print(e);
     }
   }
+
+  CollectionReference _reference =
+      FirebaseFirestore.instance.collection('Reels');
+
+  String imageUrl = '';
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +57,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
         actions: [
           IconButton(
             icon: const Icon(Icons.add_a_photo),
-            onPressed: () async {
-              ImagePicker imagePicker = ImagePicker();
-              XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
-              print('${file?.path}');
+            onPressed: () {
+              Navigator.pushNamed(context, '/camera_screen');
             },
+            // // onPressed: () async {
+            // //   // pick image using image picker
+            // //   ImagePicker imagePicker = ImagePicker();
+            // //   XFile? file =
+            // //       await imagePicker.pickImage(source: ImageSource.camera);
+            // //   print('Path: ${file?.path}');
+            // //
+            // //   if (file == null) return;
+            // //
+            // //   // unique name
+            // //   String uniqueFileName =
+            // //       DateTime.now().millisecondsSinceEpoch.toString();
+            // //   //upload the file on firebase storage
+            // //
+            // //   // get the reference to file or folder
+            // //   Reference referenceRoot = FirebaseStorage.instance.ref();
+            // //   Reference referenceDirImage = referenceRoot.child('images');
+            // //
+            // //   // Create a reference for the image to be stored
+            // //   Reference referenceImageToUpload =
+            // //       referenceDirImage.child(uniqueFileName);
+            // //
+            // //   // Handle errors/success
+            // //   try {
+            // //     // Store the file
+            // //     await referenceImageToUpload.putFile(File(file!.path));
+            // //     // Success: get the download URL
+            // //     imageUrl = await referenceImageToUpload.getDownloadURL();
+            // //   } catch (error) {
+            // //     print(error);
+            // //   }
+            // },
           ),
           IconButton(icon: const Icon(Icons.exit_to_app), onPressed: _signOut),
         ],
@@ -68,12 +107,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         },
         separatorBuilder: (BuildContext context, int index) => const Divider(),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          print('open camera');
-        },
-        child: Icon(Icons.add),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {
+      //     print('open camera');
+      //   },
+      //   child: Icon(Icons.add),
+      // ),
     );
   }
 }
